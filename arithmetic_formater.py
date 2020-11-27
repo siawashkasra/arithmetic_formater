@@ -1,17 +1,20 @@
 import operator
 
-def arithmetic_arranger(problems, result_flag=False):
+def arrange(problems, result_flag=False):
+
     if len(problems) > 5:
         return "Error: Too many problems."
+
     header = ''
     bottom = ''
     result = ''
     dashes = list()
     result_list = list()
     ops = { "+": operator.add, "-": operator.sub }
-    arranged = list()
     problems_list = map(lambda x: x.split(" "), problems)
+
     for problem in problems_list:
+
         if  problem[0].isdigit() is False or problem[2].isdigit() is False:
             return "Error: Numbers must only contain digits."
 
@@ -20,7 +23,9 @@ def arithmetic_arranger(problems, result_flag=False):
 
         if len(problem[0]) > 4 or len(problem[2]) > 4:
             return "Error: Numbers cannot be more than four digits."
+
         for align, p in zip('<', problem):
+            
             if len(problem[0]) < len(problem [2]):
 
                 header += '{0:{fill}{align}{width}}'.format(problem[0].rjust(len(problem[1]) + len(problem[2]) + 1), fill='', align=align, width= 2 + len(problem[2]) + 4)
@@ -59,11 +64,12 @@ def arithmetic_arranger(problems, result_flag=False):
     result = map(lambda x: str(x), result_list)
     f_result = "".join(list(result))
     f_result = f_result.rstrip()
+
     if result_flag:
         f_dashes += f_dashes.join("\n")
-        arranged.append(header + bottom + f_dashes + f_result)
-    arranged.append(header + bottom + f_dashes)
-    return arranged[0]
+        return header + bottom + f_dashes + f_result
+
+    return header + bottom + f_dashes
 
 
-print(arithmetic_arranger(["3 + 8553", "4801 - 2", "45 + 43", "123 + 49"]))
+print(arrange(["3 + 8553", "4801 - 2", "45 + 43", "123 + 49"]))
